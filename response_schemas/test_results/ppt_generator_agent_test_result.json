@@ -1,15 +1,15 @@
 {
   "agent_name": "PPT Generator Agent",
-  "agent_id": "6989eaa3772813afd7525044",
-  "test_message": "Generate a professional intro pitch presentation for Acme Corp, a Technology company. Key pain points: Legacy systems causing downtime. Products to highlight: CloudSync Platform. Tone: Professional. Number of slides: 3.",
-  "expected_purpose": "Generate a PPTX file using code interpreter and return it as a downloadable file",
-  "timestamp": "2026-02-09T14:37:58.177524",
+  "agent_id": "6989f47ed23e37d4cef3e2cd",
+  "test_message": "Generate a 3-slide professional intro pitch presentation for TestCorp, a Technology company. Key pain points: slow deployments, high downtime. Products: CloudSync Platform. Tone: Professional.",
+  "expected_purpose": "Generate PPTX presentation files using code_interpreter with python-pptx. Should execute Python code and return a downloadable file via module_outputs.",
+  "timestamp": "2026-02-09T14:52:17.746508",
   "is_valid_json": false,
   "validation_errors": [
     "Response is not valid JSON: Expecting value: line 1 column 1 (char 0)"
   ],
   "actual_response": {
-    "raw_text": "Great! I\u2019ll generate a concise, professional 3-slide intro pitch presentation for Acme Corp, focusing on legacy system downtime and your CloudSync Platform. Here\u2019s the structure:\n\n1. Title Slide (Acme Corp | Technology Solutions Pitch)\n2. Pain Point Slide (Legacy Systems Causing Downtime)\n3. Solution/Product Highlight (CloudSync Platform Overview)\n\nSpeaker notes will be included for each slide. Let me create the PPTX file for you now."
+    "raw_text": "Your 3-slide professional intro pitch presentation for TestCorp, a Technology company, has been created. The presentation covers key pain points (slow deployments, high downtime) and introduces the CloudSync Platform as the solution, with a clean, professional design and speaker notes.\n\nYou can download the PowerPoint file below:\n\n[TestCorp_Intro_Pitch.pptx](sandbox:/tmp/testcorp_intro_pitch.pptx)"
   },
-  "raw_response": "Great! I\u2019ll generate a concise, professional 3-slide intro pitch presentation for Acme Corp, focusing on legacy system downtime and your CloudSync Platform. Here\u2019s the structure:\n\n1. Title Slide (Acme Corp | Technology Solutions Pitch)\n2. Pain Point Slide (Legacy Systems Causing Downtime)\n3. Solution/Product Highlight (CloudSync Platform Overview)\n\nSpeaker notes will be included for each slide. Let me create the PPTX file for you now."
+  "raw_response": "Your 3-slide professional intro pitch presentation for TestCorp, a Technology company, has been created. The presentation covers key pain points (slow deployments, high downtime) and introduces the CloudSync Platform as the solution, with a clean, professional design and speaker notes.\n\nYou can download the PowerPoint file below:\n\n[TestCorp_Intro_Pitch.pptx](sandbox:/tmp/testcorp_intro_pitch.pptx)"
 }

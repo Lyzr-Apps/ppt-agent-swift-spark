@@ -1,215 +1,23 @@
 {
   "agent_name": "PPT Generator Agent",
-  "agent_id": "6989eaa3772813afd7525044",
-  "test_input": "Generate a professional intro pitch presentation for Acme Corp, a Technology company. Key pain points: Legacy systems causing downtime, High operational costs, Need for digital transformation. Products to highlight: CloudSync Platform, AI Analytics Suite. Tone: Professional. Number of slides: 8.",
+  "agent_id": "6989f47ed23e37d4cef3e2cd",
+  "test_input": "Generate a 3-slide professional intro pitch presentation for TestCorp, a Technology company. Key pain points: slow deployments, high downtime. Products: CloudSync Platform. Tone: Professional.",
   "response": {
-    "result": [
-      {
-        "slide_number": "Slide 1 of 8",
-        "slide_title": "Acme Corp: Powering Innovation with Modern Technology",
-        "subtitle": "Transforming Legacy Challenges into Digital Opportunities",
-        "bullet_points": [],
-        "speaker_notes": "Good morning/afternoon, Acme Corp team. I'm [Your Name], and I'm excited to present how we can help you overcome your current challenges and achieve your digital transformation goals. Our company, [Your Company Name], specializes in providing cutting-edge technology solutions that drive efficiency, reduce costs, and accelerate growth. This presentation will outline how we can support Acme Corp. in its digital transformation journey.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 2 of 8",
-        "slide_title": "Agenda: Charting a Course for Digital Transformation",
-        "bullet_points": [
-          "Understanding Acme Corp's Current Challenges",
-          "Introducing Our Innovative Solutions",
-          "Highlighting Key Value Propositions",
-          "Demonstrating Real-World Success",
-          "Defining the Path Forward"
-        ],
-        "speaker_notes": "To begin, let's review our agenda. We'll start by diving into the specific pain points you're facing. Then, we'll explore how our CloudSync Platform and AI Analytics Suite directly address these issues. We will then examine the value our solutions offer and, finally, look at the next steps to ensure a smooth transition.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 3 of 8",
-        "slide_title": "Addressing Key Pain Points: Challenges in the Technology Sector",
-        "bullet_points": [
-          "Legacy Systems: Frequent outages and limited scalability.",
-          "High Operational Costs: Inefficient processes and manual interventions.",
-          "Digital Transformation: Difficulty in adapting to market changes."
-        ],
-        "speaker_notes": "Let's explore the challenges. Many tech companies are struggling with legacy systems, causing significant downtime. Operational costs are often high due to inefficient processes. Finally, adapting to rapid market changes and driving digital transformation is a significant challenge.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 4 of 8",
-        "slide_title": "CloudSync Platform: Modernizing Your Infrastructure",
-        "bullet_points": [
-          "Seamless cloud migration and data synchronization.",
-          "Enhanced system uptime and reliability.",
-          "Scalable infrastructure for future growth.",
-          "Reduced IT overhead and maintenance costs."
-        ],
-        "speaker_notes": "Our CloudSync Platform offers a powerful solution. It provides seamless cloud migration, ensuring your data is synchronized and secure. This results in enhanced uptime, scalability, and significant reductions in IT overhead.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 5 of 8",
-        "slide_title": "AI Analytics Suite: Data-Driven Decision Making",
-        "bullet_points": [
-          "Advanced AI-powered data analytics.",
-          "Real-time insights for informed decision-making.",
-          "Improved operational efficiency and cost savings.",
-          "Predictive analytics to anticipate future trends."
-        ],
-        "speaker_notes": "Our AI Analytics Suite brings advanced data analysis capabilities. It delivers real-time insights, allowing for data-driven decisions. The result is improved efficiency, cost savings, and predictive insights.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 6 of 8",
-        "slide_title": "Value Proposition: Key Benefits for Acme Corp",
-        "bullet_points": [
-          "Reduce Downtime by 40%.",
-          "Decrease Operational Costs by 25%.",
-          "Accelerate Digital Transformation Initiatives."
-        ],
-        "speaker_notes": "Our solutions offer quantifiable value. We can help you reduce downtime by up to 40%, decrease operational costs by 25%, and accelerate your digital transformation initiatives. These are just initial metrics, and we can adjust the numbers based on specific needs.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 7 of 8",
-        "slide_title": "Case Study: [Competitor Company Name] - A Success Story",
-        "bullet_points": [
-          "Similar company profile to Acme Corp.",
-          "Challenge: Struggling with legacy infrastructure and high operational costs.",
-          "Solution: Implementation of CloudSync Platform and AI Analytics Suite.",
-          "Results: Reduced downtime by 45% and improved operational efficiency."
-        ],
-        "speaker_notes": "We have helped many companies achieve similar results. For example, [Competitor Company Name], a technology company like yours, faced similar challenges. By implementing our solutions, they reduced downtime and increased operational efficiency significantly. We are confident we can achieve similar results for Acme Corp.",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      },
-      {
-        "slide_number": "Slide 8 of 8",
-        "slide_title": "Next Steps: Partnering for a Digital Future",
-        "bullet_points": [
-          "Schedule a follow-up demo.",
-          "Conduct a detailed needs assessment.",
-          "Develop a customized implementation plan."
-        ],
-        "speaker_notes": "Thank you for your time. The next steps involve scheduling a follow-up demo, conducting a detailed needs assessment, and developing a customized implementation plan. We are excited about the opportunity to partner with Acme Corp. and help you achieve your digital transformation goals. [Your Name] and [Your Contact Information]",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": [
-          "Legacy systems causing downtime",
-          "High operational costs",
-          "Need for digital transformation"
-        ],
-        "products_to_highlight": [
-          "CloudSync Platform",
-          "AI Analytics Suite"
-        ],
-        "tone": "Professional"
-      }
-    ]
+    "status": "success",
+    "result": {
+      "text": "Your 3-slide professional intro pitch presentation for TestCorp, a Technology company, has been created. The presentation covers key pain points (slow deployments, high downtime) and introduces the CloudSync Platform as the solution, with a clean, professional design and speaker notes.\n\nYou can download the PowerPoint file below:\n\n[TestCorp_Intro_Pitch.pptx](sandbox:/tmp/testcorp_intro_pitch.pptx)"
+    },
+    "message": "Your 3-slide professional intro pitch presentation for TestCorp, a Technology company, has been created. The presentation covers key pain points (slow deployments, high downtime) and introduces the CloudSync Platform as the solution, with a clean, professional design and speaker notes.\n\nYou can download the PowerPoint file below:\n\n[TestCorp_Intro_Pitch.pptx](sandbox:/tmp/testcorp_intro_pitch.pptx)"
   },
   "field_types": {
-    "result": "array",
-    "result[].slide_number": "string",
-    "result[].slide_title": "string",
-    "result[].subtitle": "string",
-    "result[].bullet_points": "array",
-    "result[].bullet_points[]": "string",
-    "result[].speaker_notes": "string",
-    "result[].presentation_type": "string",
-    "result[].client_name": "string",
-    "result[].industry_vertical": "string",
-    "result[].key_pain_points": "array",
-    "result[].key_pain_points[]": "string",
-    "result[].products_to_highlight": "array",
-    "result[].products_to_highlight[]": "string",
-    "result[].tone": "string"
+    "result.text": "string",
+    "message": "string",
+    "module_outputs": "array (optional, contains file URLs when code_interpreter produces files)",
+    "module_outputs[].url": "string (download URL)",
+    "module_outputs[].file_name": "string",
+    "raw_response": "string (full text from agent including sandbox file links)"
   },
-  "response_format_notes": "This agent returns an ARRAY of slide objects directly (not wrapped in {status, result, metadata}). Each slide contains structured data for generating a PPTX file. The subtitle field is optional and only present on the title slide (Slide 1). No artifact_files or download URLs were returned in this test - the agent produces structured slide content data rather than a binary file.",
+  "response_format_notes": "This agent uses code_interpreter to execute Python code with python-pptx. It returns a text response describing the presentation and a sandbox file link. When the Lyzr API returns module_outputs, those contain downloadable HTTPS URLs for the generated PPTX files. The UI extracts file URLs from module_outputs first, then falls back to parsing sandbox/HTTPS links from the raw text response.",
   "status": "passed",
-  "timestamp": "2026-02-09T00:00:00.000Z"
+  "timestamp": "2026-02-09T14:52:17.746508"
 }

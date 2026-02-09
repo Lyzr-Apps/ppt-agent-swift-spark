@@ -3,7 +3,7 @@
   "created_at": "2026-02-09",
   "agents": {
     "ppt_generator_agent": {
-      "agent_id": "6989eaa3772813afd7525044",
+      "agent_id": "6989f47ed23e37d4cef3e2cd",
       "name": "PPT Generator Agent",
       "type": "file_output",
       "provider": "OpenAI",
@@ -32,7 +32,7 @@
     }
   },
   "agent_ids": [
-    "6989eaa3772813afd7525044"
+    "6989f47ed23e37d4cef3e2cd"
   ],
   "test_summary": {
     "total_agents": 1,

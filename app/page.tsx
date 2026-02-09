@@ -14,7 +14,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-const AGENT_ID = '6989eaa3772813afd7525044'
+const AGENT_ID = '6989f47ed23e37d4cef3e2cd'
 
 interface Slide {
   slide_number: string
@@ -413,9 +413,9 @@ export default function Home() {
     return `Generate a professional ${fd.presentationType} presentation for ${fd.clientName}, a ${fd.industry} company. Key pain points: ${fd.painPoints}. Products to highlight: ${products}. Tone: ${fd.tone}. Number of slides: ${fd.slideCount}.`
   }
 
-  // Extract file download URL from module_outputs or artifact_files
+  // Extract file download URL from module_outputs, artifact_files, or sandbox links in text
   const extractFileUrl = (result: Record<string, any>): string | null => {
-    // Check module_outputs
+    // Check top-level module_outputs
     const moduleOutputs = result?.module_outputs
     if (Array.isArray(moduleOutputs)) {
       for (const output of moduleOutputs) {
@@ -423,7 +423,7 @@ export default function Home() {
         if (url && typeof url === 'string') return url
       }
     }
-    // Check artifact_files
+    // Check top-level artifact_files
     const artifactFiles = result?.artifact_files
     if (Array.isArray(artifactFiles)) {
       for (const file of artifactFiles) {
@@ -438,6 +438,24 @@ export default function Home() {
         const url = output?.url || output?.file_url || output?.download_url
         if (url && typeof url === 'string') return url
       }
+    }
+    // Check nested response for artifact_files
+    const respArtifactFiles = result?.response?.artifact_files
+    if (Array.isArray(respArtifactFiles)) {
+      for (const file of respArtifactFiles) {
+        const url = file?.url || file?.file_url || file?.download_url
+        if (url && typeof url === 'string') return url
+      }
+    }
+    // Check for file URLs in raw_response text (sandbox links or direct URLs)
+    const rawText = result?.raw_response || result?.response?.message || result?.response?.result?.text || ''
+    if (typeof rawText === 'string') {
+      // Match markdown-style file links: [filename](url)
+      const mdLinkMatch = rawText.match(/\[.*?\.pptx\]\((https?:\/\/[^\s)]+)\)/i)
+      if (mdLinkMatch?.[1]) return mdLinkMatch[1]
+      // Match direct HTTPS URLs ending in .pptx
+      const urlMatch = rawText.match(/(https?:\/\/[^\s)]+\.pptx[^\s)]*)/i)
+      if (urlMatch?.[1]) return urlMatch[1]
     }
     return null
   }
@@ -467,12 +485,14 @@ export default function Home() {
       if (result?.success) {
         const products = formData.productsInput.split(',').map(p => p.trim()).filter(Boolean)
 
-        // Extract file URL from module_outputs / artifact_files
+        // Extract file URL from module_outputs / artifact_files / raw_response
         const fileUrl = extractFileUrl(result as Record<string, any>)
 
         // Extract text message from agent
-        const textMsg = result?.response?.message || result?.response?.result?.text || ''
-        if (textMsg) setAgentMessage(textMsg)
+        const textMsg = result?.response?.message || result?.response?.result?.text || result?.raw_response || ''
+        // Clean up sandbox links from display text
+        const cleanMsg = typeof textMsg === 'string' ? textMsg.replace(/\[.*?\]\(sandbox:[^\)]+\)/g, '').trim() : ''
+        if (cleanMsg) setAgentMessage(cleanMsg)
 
         // Try to extract structured slides from the response
         const rawResult = result?.response?.result

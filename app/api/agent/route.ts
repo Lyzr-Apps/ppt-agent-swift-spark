@@ -158,7 +158,16 @@ export async function POST(request: NextRequest) {
     const rawText = await response.text()
 
     if (response.ok) {
-      const parsed = parseLLMJson(rawText)
+      // First try standard JSON.parse to preserve full response structure including module_outputs
+      let rawParsed: any = null
+      try {
+        rawParsed = JSON.parse(rawText)
+      } catch {
+        // Not valid JSON, will fall back to parseLLMJson
+      }
+
+      // Use parseLLMJson for content normalization
+      const parsed = rawParsed || parseLLMJson(rawText)
 
       if (parsed?.success === false && parsed?.error) {
         return NextResponse.json({
@@ -173,11 +182,16 @@ export async function POST(request: NextRequest) {
         })
       }
 
-      const normalized = normalizeResponse(parsed)
+      // Extract the text response content
+      const responseText = rawParsed?.response || parsed?.response || parsed
+      const normalized = normalizeResponse(typeof responseText === 'string' ? responseText : parsed)
 
       // Extract module_outputs for file-output agents (code_interpreter, PPTX, etc.)
-      const moduleOutputs = parsed?.module_outputs || parsed?.module_output || null
-      const artifactFiles = parsed?.artifact_files || parsed?.artifacts || null
+      // Check both the raw parsed object and parsed/normalized response at all levels
+      const moduleOutputs = rawParsed?.module_outputs || rawParsed?.module_output
+        || parsed?.module_outputs || parsed?.module_output || null
+      const artifactFiles = rawParsed?.artifact_files || rawParsed?.artifacts
+        || parsed?.artifact_files || parsed?.artifacts || null
 
       const responsePayload: Record<string, any> = {
         success: true,
@@ -191,9 +205,12 @@ export async function POST(request: NextRequest) {
 
       if (moduleOutputs) {
         responsePayload.module_outputs = moduleOutputs
+        // Also nest module_outputs inside response for easier client access
+        responsePayload.response.module_outputs = moduleOutputs
       }
       if (artifactFiles) {
         responsePayload.artifact_files = artifactFiles
+        responsePayload.response.artifact_files = artifactFiles
       }
 
       return NextResponse.json(responsePayload)

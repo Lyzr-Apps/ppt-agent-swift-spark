@@ -1,8 +1,8 @@
 {
   "agent_name": "PPT Generator Agent",
-  "agent_id": "6989eaa3772813afd7525044",
-  "agent_purpose": "Generate professional sales presentations as PPTX files using code_interpreter with python-pptx",
-  "description": "Sales presentation generator agent that creates PPTX files via code_interpreter. Returns text response with module_outputs containing downloadable file URLs, or structured slide data as fallback.",
+  "agent_id": "6989f47ed23e37d4cef3e2cd",
+  "agent_purpose": "Generate professional sales presentations as PPTX files using code_interpreter with python-pptx. Executes Python code to create actual .pptx files and returns text response with sandbox download links.",
+  "description": "Sales presentation generator agent that uses code_interpreter to execute Python code with python-pptx library. Creates actual PPTX files and returns a text response describing the presentation along with a sandbox download link. May also return module_outputs with file URLs when available.",
   "response_schema": {
     "status": "string (success|error)",
     "result": {
@@ -38,6 +38,6 @@
   "is_actual_tested": false,
   "test_timestamp": null,
   "test_message_used": "Hello, provide a sample response",
-  "raw_test_response": "Certainly! Here\u2019s a sample response for a hypothetical client request. (Note: If you provide your actual company/product info, I\u2019ll make a real PPTX file for you.)\n\nSample Request:  \nClient: \u201cTechSphere Solutions\u201d  \nIndustry: Financial Services  \nProducts: SecureCloud Platform, DataGuard Analytics  \nObjective: Pitching cybersecurity solutions\n\nSample Response:  \n\nThank you for your request! Here is your custom sales presentation, tailored for TechSphere Solutions in the Financial Services industry, focusing on cybersecurity solutions.\n\n**Slides include:**\n1. Title Slide: TechSphere Solutions \u2013 Elevate Your Security (Sales Presentation)\n2. Agenda Slide\n3. Pain Points: Top cybersecurity challenges in financial services\n4. Product Slides: SecureCloud Platform & DataGuard Analytics, with key features\n5. Value Proposition: Quantified benefits for your business\n6. Next Steps / Call-to-Action\n\nI\u2019ve applied a clean blue/gray scheme, Calibri font, bullet points, consistent formatting, and professional speaker notes for each slide.\n\nPlease download your presentation below:\n\n\u2b07\ufe0f [Download TechSphere_Solutions_Sales_Pitch.pptx] (A real file link would appear here if you provided actual details.)\n\nIf you have more details or want to change the products/industry, just let me know! I can generate the full PPTX file for your specific needs.",
+  "raw_test_response": "Thank you for your interest! To generate a sample sales presentation PPTX, I'll need a bit of information:\n\n1. Your company name\n2. Industry or sector\n3. Key pain points or challenges\n4. Products or solutions you'd like featured\n5. Desired tone (e.g., formal, energetic, consultative)\n6. Number of slides (approximate)\n\nPlease provide these details, and I'll create a downloadable professional presentation for you.",
   "test_error": "Response not valid JSON: Expecting value: line 1 column 1 (char 0)"
 }
