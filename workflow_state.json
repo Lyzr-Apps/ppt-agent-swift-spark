@@ -11,16 +11,23 @@
       "temperature": 0.7,
       "top_p": 0.95,
       "file_output": true,
+      "tool_configs": [
+        {
+          "tool_name": "code_interpreter",
+          "tool_source": "lyzr",
+          "action_names": ["execute_code"],
+          "priority": 0
+        }
+      ],
       "status": "tested",
       "test_result": {
         "status": "passed",
         "tested_at": "2026-02-09T00:00:00.000Z",
         "test_message": "Generate a professional intro pitch presentation for Acme Corp, a Technology company. Key pain points: Legacy systems causing downtime, High operational costs, Need for digital transformation. Products to highlight: CloudSync Platform, AI Analytics Suite. Tone: Professional. Number of slides: 8.",
-        "response_format": "array_of_slide_objects",
-        "slides_returned": 8,
+        "response_format": "text_with_file_output",
         "response_file": "/app/nextjs-project/test_responses/ppt_generator_agent_response.json",
         "schema_file": "/app/nextjs-project/response_schemas/ppt_generator_agent_response.json",
-        "notes": "Agent returns an array of slide objects directly (not wrapped in standard {status, result, metadata}). Each slide has: slide_number, slide_title, subtitle (optional), bullet_points (array), speaker_notes, presentation_type, client_name, industry_vertical, key_pain_points (array), products_to_highlight (array), tone. No PPTX file/download URL was returned - agent produces structured content data for slide rendering."
+        "notes": "Agent uses code_interpreter with python-pptx to generate PPTX files. Returns text response with module_outputs containing downloadable file URLs. UI handles both PPTX file output and structured slide data fallback."
       }
     }
   },

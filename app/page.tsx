@@ -42,6 +42,8 @@ interface Presentation {
   products: string[]
   slides: Slide[]
   createdAt: string
+  pptxUrl?: string
+  agentMessage?: string
 }
 
 interface FormData {
@@ -309,8 +311,13 @@ function PreviewModal({ presentation, onClose }: { presentation: Presentation; o
             <p className="text-sm text-muted-foreground">{presentation?.presentationType ?? ''} - {slides.length} slides</p>
           </div>
           <div className="flex items-center gap-2">
+            {presentation?.pptxUrl && (
+              <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" onClick={() => window.open(presentation.pptxUrl!, '_blank')}>
+                <RiDownloadLine className="w-4 h-4 mr-1.5" /> PPTX
+              </Button>
+            )}
             <Button variant="outline" size="sm" onClick={() => downloadPresentation(presentation)}>
-              <RiDownloadLine className="w-4 h-4 mr-1.5" /> Download
+              <RiDownloadLine className="w-4 h-4 mr-1.5" /> TXT
             </Button>
             <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
               <RiCloseLine className="w-4 h-4" />
@@ -318,10 +325,15 @@ function PreviewModal({ presentation, onClose }: { presentation: Presentation; o
           </div>
         </div>
         <ScrollArea className="flex-1 p-6">
+          {presentation?.agentMessage && (
+            <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 mb-4">
+              <p className="text-sm text-blue-800 whitespace-pre-wrap">{presentation.agentMessage}</p>
+            </div>
+          )}
           {slides.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <RiFileTextLine className="w-12 h-12 mx-auto mb-3 opacity-40" />
-              <p className="text-sm">No slide content available for this presentation.</p>
+              <p className="text-sm">{presentation?.pptxUrl ? 'This presentation was generated as a PPTX file. Use the download button above.' : 'No slide content available for this presentation.'}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -349,6 +361,8 @@ export default function Home() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
   const [generatedSlides, setGeneratedSlides] = useState<Slide[]>([])
   const [regeneratingIndex, setRegeneratingIndex] = useState<number | null>(null)
+  const [pptxDownloadUrl, setPptxDownloadUrl] = useState<string | null>(null)
+  const [agentMessage, setAgentMessage] = useState<string | null>(null)
   const [previewPresentation, setPreviewPresentation] = useState<Presentation | null>(null)
   const [historySearch, setHistorySearch] = useState('')
   const [historyTypeFilter, setHistoryTypeFilter] = useState('all')
@@ -399,6 +413,35 @@ export default function Home() {
     return `Generate a professional ${fd.presentationType} presentation for ${fd.clientName}, a ${fd.industry} company. Key pain points: ${fd.painPoints}. Products to highlight: ${products}. Tone: ${fd.tone}. Number of slides: ${fd.slideCount}.`
   }
 
+  // Extract file download URL from module_outputs or artifact_files
+  const extractFileUrl = (result: Record<string, any>): string | null => {
+    // Check module_outputs
+    const moduleOutputs = result?.module_outputs
+    if (Array.isArray(moduleOutputs)) {
+      for (const output of moduleOutputs) {
+        const url = output?.url || output?.file_url || output?.download_url
+        if (url && typeof url === 'string') return url
+      }
+    }
+    // Check artifact_files
+    const artifactFiles = result?.artifact_files
+    if (Array.isArray(artifactFiles)) {
+      for (const file of artifactFiles) {
+        const url = file?.url || file?.file_url || file?.download_url
+        if (url && typeof url === 'string') return url
+      }
+    }
+    // Check nested response for module_outputs
+    const respModuleOutputs = result?.response?.module_outputs
+    if (Array.isArray(respModuleOutputs)) {
+      for (const output of respModuleOutputs) {
+        const url = output?.url || output?.file_url || output?.download_url
+        if (url && typeof url === 'string') return url
+      }
+    }
+    return null
+  }
+
   const handleGenerate = async () => {
     if (!formData.clientName.trim()) {
       setError('Please enter a client name.')
@@ -413,6 +456,8 @@ export default function Home() {
     setError(null)
     setSuccessMsg(null)
     setGeneratedSlides([])
+    setPptxDownloadUrl(null)
+    setAgentMessage(null)
     setActiveAgentId(AGENT_ID)
 
     try {
@@ -420,12 +465,43 @@ export default function Home() {
       const result = await callAIAgent(message, AGENT_ID)
 
       if (result?.success) {
+        const products = formData.productsInput.split(',').map(p => p.trim()).filter(Boolean)
+
+        // Extract file URL from module_outputs / artifact_files
+        const fileUrl = extractFileUrl(result as Record<string, any>)
+
+        // Extract text message from agent
+        const textMsg = result?.response?.message || result?.response?.result?.text || ''
+        if (textMsg) setAgentMessage(textMsg)
+
+        // Try to extract structured slides from the response
         const rawResult = result?.response?.result
         const slides = parseSlides(rawResult)
 
-        if (slides.length > 0) {
+        if (fileUrl) {
+          // File output mode: agent returned a downloadable PPTX
+          setPptxDownloadUrl(fileUrl)
+          const newPresentation: Presentation = {
+            id: generateId(),
+            clientName: formData.clientName,
+            industry: formData.industry,
+            contactName: formData.contactName,
+            presentationType: formData.presentationType,
+            slideCount: formData.slideCount,
+            tone: formData.tone,
+            painPoints: formData.painPoints,
+            products,
+            slides,
+            pptxUrl: fileUrl,
+            agentMessage: textMsg || undefined,
+            createdAt: new Date().toISOString(),
+          }
+          savePresentations([newPresentation, ...presentations])
+          setSuccessMsg(`Presentation generated successfully! Your PPTX file is ready for download.`)
+          if (slides.length > 0) setGeneratedSlides(slides)
+        } else if (slides.length > 0) {
+          // Structured slide data mode (fallback)
           setGeneratedSlides(slides)
-          const products = formData.productsInput.split(',').map(p => p.trim()).filter(Boolean)
           const newPresentation: Presentation = {
             id: generateId(),
             clientName: formData.clientName,
@@ -444,9 +520,10 @@ export default function Home() {
         } else {
           const msg = result?.response?.message
           if (msg) {
-            setError(`Agent responded but no slide data found. Message: ${msg}`)
+            setAgentMessage(msg)
+            setSuccessMsg('Agent responded. See the message below.')
           } else {
-            setError('No slides were returned. Please try again.')
+            setError('No slides or file were returned. Please try again.')
           }
         }
       } else {
@@ -518,6 +595,8 @@ export default function Home() {
       tone: 'Professional',
     })
     setGeneratedSlides([])
+    setPptxDownloadUrl(null)
+    setAgentMessage(null)
     setError(null)
     setSuccessMsg(null)
   }, [])
@@ -700,9 +779,15 @@ export default function Home() {
                               <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => setPreviewPresentation(pres)}>
                                 <RiExternalLinkLine className="w-3 h-3 mr-1" /> View
                               </Button>
-                              <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
-                                <RiDownloadLine className="w-3 h-3 mr-1" /> Download
-                              </Button>
+                              {pres?.pptxUrl ? (
+                                <Button size="sm" className="h-7 text-xs flex-1 bg-green-600 hover:bg-green-700 text-white" onClick={() => window.open(pres.pptxUrl!, '_blank')}>
+                                  <RiDownloadLine className="w-3 h-3 mr-1" /> PPTX
+                                </Button>
+                              ) : (
+                                <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
+                                  <RiDownloadLine className="w-3 h-3 mr-1" /> Download
+                                </Button>
+                              )}
                             </div>
                           </div>
                         )
@@ -840,6 +925,13 @@ export default function Home() {
                       </div>
                     )}
 
+                    {/* Agent Message */}
+                    {agentMessage && !error && (
+                      <div className="p-4 rounded-xl bg-blue-50 border border-blue-200">
+                        <p className="text-sm text-blue-800 whitespace-pre-wrap">{agentMessage}</p>
+                      </div>
+                    )}
+
                     {/* Generate Button */}
                     <div className="flex items-center gap-3 flex-wrap">
                       <Button size="lg" onClick={handleGenerate} disabled={loading} className="shadow-lg min-w-[220px]">
@@ -855,6 +947,14 @@ export default function Home() {
                           </>
                         )}
                       </Button>
+                      {pptxDownloadUrl && (
+                        <Button size="lg" variant="default" className="shadow-lg bg-green-600 hover:bg-green-700" onClick={() => {
+                          window.open(pptxDownloadUrl, '_blank')
+                        }}>
+                          <RiDownloadLine className="w-4 h-4 mr-2" />
+                          Download PPTX
+                        </Button>
+                      )}
                       {generatedSlides.length > 0 && (
                         <Button variant="outline" size="lg" onClick={() => {
                           if (presentations.length > 0) {
@@ -886,11 +986,23 @@ export default function Home() {
                         </div>
                       )}
 
-                      {!loading && generatedSlides.length === 0 && (
+                      {!loading && generatedSlides.length === 0 && !pptxDownloadUrl && (
                         <div className="glass-card rounded-2xl p-12 text-center border border-dashed border-border">
                           <SlideshowIcon className="w-12 h-12 mx-auto text-muted-foreground/30 mb-3" />
                           <p className="text-sm text-muted-foreground font-medium">No slides yet</p>
                           <p className="text-xs text-muted-foreground mt-1">Fill in the form and click Generate to create your slide deck.</p>
+                        </div>
+                      )}
+
+                      {!loading && generatedSlides.length === 0 && pptxDownloadUrl && (
+                        <div className="glass-card rounded-2xl p-12 text-center border border-green-200 bg-green-50/50">
+                          <RiCheckLine className="w-10 h-10 mx-auto text-green-600 mb-4" />
+                          <p className="text-sm font-medium text-green-800">PPTX File Ready</p>
+                          <p className="text-xs text-muted-foreground mt-1 mb-4">Your presentation has been generated as a PowerPoint file.</p>
+                          <Button size="lg" className="bg-green-600 hover:bg-green-700 shadow-lg" onClick={() => window.open(pptxDownloadUrl, '_blank')}>
+                            <RiDownloadLine className="w-4 h-4 mr-2" />
+                            Download PPTX
+                          </Button>
                         </div>
                       )}
 
@@ -979,13 +1091,19 @@ export default function Home() {
                               </div>
                             )}
                           </CardContent>
-                          <CardFooter className="pt-2 gap-2">
+                          <CardFooter className="pt-2 gap-2 flex-wrap">
                             <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => setPreviewPresentation(pres)}>
                               <RiExternalLinkLine className="w-3 h-3 mr-1" /> Preview
                             </Button>
-                            <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
-                              <RiDownloadLine className="w-3 h-3 mr-1" /> Download
-                            </Button>
+                            {pres?.pptxUrl ? (
+                              <Button size="sm" className="h-7 text-xs flex-1 bg-green-600 hover:bg-green-700 text-white" onClick={() => window.open(pres.pptxUrl!, '_blank')}>
+                                <RiDownloadLine className="w-3 h-3 mr-1" /> PPTX
+                              </Button>
+                            ) : (
+                              <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
+                                <RiDownloadLine className="w-3 h-3 mr-1" /> Download
+                              </Button>
+                            )}
                             {!isSample && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10" onClick={() => handleDeletePresentation(pres?.id ?? '')}>
                                 <RiCloseLine className="w-3.5 h-3.5" />

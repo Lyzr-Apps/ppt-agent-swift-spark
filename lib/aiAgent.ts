@@ -31,6 +31,17 @@ export interface NormalizedAgentResponse {
   }
 }
 
+export interface ModuleOutput {
+  type?: string
+  url?: string
+  file_url?: string
+  download_url?: string
+  file_name?: string
+  file_type?: string
+  content_type?: string
+  [key: string]: any
+}
+
 export interface AIAgentResponse {
   success: boolean
   response: NormalizedAgentResponse
@@ -41,6 +52,8 @@ export interface AIAgentResponse {
   raw_response?: string
   error?: string
   details?: string
+  module_outputs?: ModuleOutput[]
+  artifact_files?: ModuleOutput[]
 }
 
 export interface UploadedFile {

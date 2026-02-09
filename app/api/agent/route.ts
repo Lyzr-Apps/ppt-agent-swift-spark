@@ -175,7 +175,11 @@ export async function POST(request: NextRequest) {
 
       const normalized = normalizeResponse(parsed)
 
-      return NextResponse.json({
+      // Extract module_outputs for file-output agents (code_interpreter, PPTX, etc.)
+      const moduleOutputs = parsed?.module_outputs || parsed?.module_output || null
+      const artifactFiles = parsed?.artifact_files || parsed?.artifacts || null
+
+      const responsePayload: Record<string, any> = {
         success: true,
         response: normalized,
         agent_id,
@@ -183,7 +187,16 @@ export async function POST(request: NextRequest) {
         session_id: finalSessionId,
         timestamp: new Date().toISOString(),
         raw_response: rawText,
-      })
+      }
+
+      if (moduleOutputs) {
+        responsePayload.module_outputs = moduleOutputs
+      }
+      if (artifactFiles) {
+        responsePayload.artifact_files = artifactFiles
+      }
+
+      return NextResponse.json(responsePayload)
     } else {
       let errorMsg = `API returned status ${response.status}`
       try {

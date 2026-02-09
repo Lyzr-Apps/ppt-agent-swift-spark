@@ -1,5 +1,7 @@
 TASK_COMPLETED
 SalesDeck AI - Sales Presentation Generator
 Agent: PPT Generator Agent (6989eaa3772813afd7525044)
+Tool: code_interpreter (python-pptx for PPTX file generation)
 UI: app/page.tsx with react-icons/ri
 Theme: Corporate Blue with glassmorphism
+Features: PPTX file download, structured slide preview, TXT export, history with search/filter

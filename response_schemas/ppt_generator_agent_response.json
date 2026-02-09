@@ -1,76 +1,43 @@
 {
   "agent_name": "PPT Generator Agent",
   "agent_id": "6989eaa3772813afd7525044",
-  "agent_purpose": "Generates professional sales presentation decks (PPTX) based on client context and deal information. Returns an array of slide objects with structured content for each slide.",
-  "description": "Returns an array of slide objects. Each slide contains slide_number, slide_title, bullet_points (array of strings), speaker_notes, and metadata fields (presentation_type, client_name, industry_vertical, key_pain_points, products_to_highlight, tone). The subtitle field is optional and appears only on the title slide.",
+  "agent_purpose": "Generate professional sales presentations as PPTX files using code_interpreter with python-pptx",
+  "description": "Sales presentation generator agent that creates PPTX files via code_interpreter. Returns text response with module_outputs containing downloadable file URLs, or structured slide data as fallback.",
   "response_schema": {
-    "result": [
-      {
-        "slide_number": "string (e.g. 'Slide 1 of 8')",
-        "slide_title": "string",
-        "subtitle": "string (optional, title slide only)",
-        "bullet_points": ["string"],
-        "speaker_notes": "string",
-        "presentation_type": "string (e.g. 'intro pitch')",
-        "client_name": "string",
-        "industry_vertical": "string",
-        "key_pain_points": ["string"],
-        "products_to_highlight": ["string"],
-        "tone": "string (e.g. 'Professional')"
-      }
-    ]
+    "status": "string (success|error)",
+    "result": {
+      "response": "string",
+      "action_taken": "string (optional)",
+      "data": "object (optional, any structured data)",
+      "suggestions": [
+        "string (optional)"
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string (ISO)"
+    }
   },
   "example_response": {
-    "result": [
-      {
-        "slide_number": "Slide 1 of 8",
-        "slide_title": "Acme Corp: Powering Innovation with Modern Technology",
-        "subtitle": "Transforming Legacy Challenges into Digital Opportunities",
-        "bullet_points": [],
-        "speaker_notes": "Good morning/afternoon, Acme Corp team. I'm [Your Name], and I'm excited to present how we can help you overcome your current challenges...",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": ["Legacy systems causing downtime", "High operational costs", "Need for digital transformation"],
-        "products_to_highlight": ["CloudSync Platform", "AI Analytics Suite"],
-        "tone": "Professional"
+    "status": "success",
+    "result": {
+      "response": "I've completed the task you requested",
+      "action_taken": "Processed the input and generated output",
+      "data": {
+        "key": "value"
       },
-      {
-        "slide_number": "Slide 2 of 8",
-        "slide_title": "Agenda: Charting a Course for Digital Transformation",
-        "bullet_points": [
-          "Understanding Acme Corp's Current Challenges",
-          "Introducing Our Innovative Solutions",
-          "Highlighting Key Value Propositions",
-          "Demonstrating Real-World Success",
-          "Defining the Path Forward"
-        ],
-        "speaker_notes": "To begin, let's review our agenda...",
-        "presentation_type": "intro pitch",
-        "client_name": "Acme Corp",
-        "industry_vertical": "Technology",
-        "key_pain_points": ["Legacy systems causing downtime", "High operational costs", "Need for digital transformation"],
-        "products_to_highlight": ["CloudSync Platform", "AI Analytics Suite"],
-        "tone": "Professional"
-      }
-    ]
+      "suggestions": [
+        "You might also want to try X"
+      ]
+    },
+    "metadata": {
+      "agent_name": "PPT Generator Agent",
+      "timestamp": "2025-01-15T10:30:00Z"
+    }
   },
-  "is_actual_tested": true,
-  "test_timestamp": "2026-02-09T00:00:00.000Z",
-  "test_message_used": "Generate a professional intro pitch presentation for Acme Corp, a Technology company. Key pain points: Legacy systems causing downtime, High operational costs, Need for digital transformation. Products to highlight: CloudSync Platform, AI Analytics Suite. Tone: Professional. Number of slides: 8.",
-  "response_format_notes": "This agent returns an ARRAY of slide objects directly (not wrapped in standard {status, result, metadata}). The response from test_agent_response returns the array as the top-level result. Each slide has consistent fields. The subtitle field is only present on the title slide. bullet_points may be empty on the title slide. No artifact_files or PPTX download URLs were returned - the agent produces structured slide content data. The UI should iterate over the array to render a slide-by-slide view.",
-  "field_types": {
-    "result": "array",
-    "result[].slide_number": "string",
-    "result[].slide_title": "string",
-    "result[].subtitle": "string (optional)",
-    "result[].bullet_points": "array of string",
-    "result[].speaker_notes": "string",
-    "result[].presentation_type": "string",
-    "result[].client_name": "string",
-    "result[].industry_vertical": "string",
-    "result[].key_pain_points": "array of string",
-    "result[].products_to_highlight": "array of string",
-    "result[].tone": "string"
-  }
+  "is_actual_tested": false,
+  "test_timestamp": null,
+  "test_message_used": "Hello, provide a sample response",
+  "raw_test_response": "Certainly! Here\u2019s a sample response for a hypothetical client request. (Note: If you provide your actual company/product info, I\u2019ll make a real PPTX file for you.)\n\nSample Request:  \nClient: \u201cTechSphere Solutions\u201d  \nIndustry: Financial Services  \nProducts: SecureCloud Platform, DataGuard Analytics  \nObjective: Pitching cybersecurity solutions\n\nSample Response:  \n\nThank you for your request! Here is your custom sales presentation, tailored for TechSphere Solutions in the Financial Services industry, focusing on cybersecurity solutions.\n\n**Slides include:**\n1. Title Slide: TechSphere Solutions \u2013 Elevate Your Security (Sales Presentation)\n2. Agenda Slide\n3. Pain Points: Top cybersecurity challenges in financial services\n4. Product Slides: SecureCloud Platform & DataGuard Analytics, with key features\n5. Value Proposition: Quantified benefits for your business\n6. Next Steps / Call-to-Action\n\nI\u2019ve applied a clean blue/gray scheme, Calibri font, bullet points, consistent formatting, and professional speaker notes for each slide.\n\nPlease download your presentation below:\n\n\u2b07\ufe0f [Download TechSphere_Solutions_Sales_Pitch.pptx] (A real file link would appear here if you provided actual details.)\n\nIf you have more details or want to change the products/industry, just let me know! I can generate the full PPTX file for your specific needs.",
+  "test_error": "Response not valid JSON: Expecting value: line 1 column 1 (char 0)"
 }
