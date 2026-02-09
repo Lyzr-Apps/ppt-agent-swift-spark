@@ -1,0 +1,45 @@
+{
+  "workflow": {
+    "name": "Sales Presentation Generator",
+    "description": "A workflow that generates professional sales presentation decks (PPTX) based on client context, deal information, and sales objectives.",
+    "nodes": [
+      {
+        "id": "input_node",
+        "type": "Input",
+        "label": "Presentation Details",
+        "nodeCategory": "input",
+        "description": "User provides presentation details: client name, industry, pain points, products, presentation type, number of slides, and tone."
+      },
+      {
+        "id": "ppt_generator_agent",
+        "type": "Agent",
+        "label": "PPT Generator Agent",
+        "nodeCategory": "agent",
+        "agent_id": "6989eaa3772813afd7525044",
+        "description": "Generates professional sales presentation content including slide titles, bullet points, value propositions, and speaker notes. Outputs downloadable PPTX files.",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "file_output": true
+      },
+      {
+        "id": "output_node",
+        "type": "Output",
+        "label": "Generated Presentation",
+        "nodeCategory": "end",
+        "description": "Returns the generated PPTX presentation file for download."
+      }
+    ],
+    "edges": [
+      {
+        "source": "input_node",
+        "target": "ppt_generator_agent"
+      },
+      {
+        "source": "ppt_generator_agent",
+        "target": "output_node"
+      }
+    ]
+  }
+}
