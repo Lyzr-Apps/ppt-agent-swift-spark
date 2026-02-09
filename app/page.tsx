@@ -261,7 +261,7 @@ function SlidePreviewCard({ slide, index, onRegenerate, isRegenerating }: { slid
         </Badge>
         {onRegenerate && (
           <Button variant="ghost" size="sm" onClick={onRegenerate} disabled={isRegenerating} className="h-7 px-2 text-muted-foreground hover:text-primary">
-            {isRegenerating ? <RiLoader4Line className="w-3.5 h-3.5 animate-spin" /> : <RiRefreshLineclassName="w-3.5 h-3.5" />}
+            {isRegenerating ? <RiLoader4Line className="w-3.5 h-3.5 animate-spin" /> : <RiRefreshLine className="w-3.5 h-3.5" />}
           </Button>
         )}
       </div>
@@ -282,7 +282,7 @@ function SlidePreviewCard({ slide, index, onRegenerate, isRegenerating }: { slid
       {slide?.speaker_notes && (
         <div className="mt-3">
           <button onClick={() => setShowNotes(!showNotes)} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
-            {showNotes ? <RiArrowUpSLineclassName="w-3 h-3" /> : <RiArrowDownSLineclassName="w-3 h-3" />}
+            {showNotes ? <RiArrowUpSLine className="w-3 h-3" /> : <RiArrowDownSLine className="w-3 h-3" />}
             Speaker Notes
           </button>
           {showNotes && (
@@ -310,17 +310,17 @@ function PreviewModal({ presentation, onClose }: { presentation: Presentation; o
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={() => downloadPresentation(presentation)}>
-              <RiDownloadLineclassName="w-4 h-4 mr-1.5" /> Download
+              <RiDownloadLine className="w-4 h-4 mr-1.5" /> Download
             </Button>
             <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
-              <RiCloseLineclassName="w-4 h-4" />
+              <RiCloseLine className="w-4 h-4" />
             </Button>
           </div>
         </div>
         <ScrollArea className="flex-1 p-6">
           {slides.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
-              <RiFileTextLineclassName="w-12 h-12 mx-auto mb-3 opacity-40" />
+              <RiFileTextLine className="w-12 h-12 mx-auto mb-3 opacity-40" />
               <p className="text-sm">No slide content available for this presentation.</p>
             </div>
           ) : (
@@ -585,7 +585,7 @@ export default function Home() {
             return (
               <button key={item.id} onClick={() => { setActiveView(item.id); setError(null); setSuccessMsg(null); }} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive ? 'bg-primary text-white shadow-md' : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'}`}>
                 {item.iconType === 'dashboard' && <DashboardIcon className={`w-5 h-5 ${isActive ? 'text-white' : ''}`} />}
-                {item.iconType === 'create' && <RiAddLineclassName={`w-5 h-5 ${isActive ? 'text-white' : ''}`} />}
+                {item.iconType === 'create' && <RiAddLine className={`w-5 h-5 ${isActive ? 'text-white' : ''}`} />}
                 {item.iconType === 'history' && <HistoryIcon className={`w-5 h-5 ${isActive ? 'text-white' : ''}`} />}
                 {item.label}
               </button>
@@ -595,7 +595,7 @@ export default function Home() {
 
         <div className="p-4 mx-3 mb-3 rounded-xl bg-muted/40 border border-border/50">
           <div className="flex items-center gap-2 mb-2">
-            <RiInformationLineclassName="w-3.5 h-3.5 text-primary" />
+            <RiInformationLine className="w-3.5 h-3.5 text-primary" />
             <span className="text-xs font-semibold">Agent Status</span>
           </div>
           <div className="flex items-center gap-2">
@@ -612,7 +612,7 @@ export default function Home() {
         <header className="h-14 border-b bg-card/80 backdrop-blur-md flex items-center justify-between px-5 shrink-0">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)} className="h-8 w-8 p-0">
-              <RiMenuLineclassName="w-4 h-4" />
+              <RiMenuLine className="w-4 h-4" />
             </Button>
             <h2 className="font-semibold text-sm" style={{ letterSpacing: '-0.01em' }}>{activeView === 'dashboard' ? 'Dashboard' : activeView === 'create' ? 'Create Presentation' : 'Presentation History'}</h2>
           </div>
@@ -662,7 +662,7 @@ export default function Home() {
                       <p className="text-muted-foreground text-sm mt-1" style={{ lineHeight: '1.55' }}>Provide client details and let AI generate a polished sales deck with custom slides, bullet points, and speaker notes.</p>
                     </div>
                     <Button size="lg" onClick={() => setActiveView('create')} className="shrink-0 shadow-lg">
-                      <RiAddLineclassName="w-4 h-4 mr-2" />
+                      <RiAddLine className="w-4 h-4 mr-2" />
                       New Presentation
                     </Button>
                   </div>
@@ -674,14 +674,14 @@ export default function Home() {
                     <h3 className="font-semibold text-lg" style={{ letterSpacing: '-0.01em' }}>Recent Presentations</h3>
                     {displayPresentations.length > 0 && (
                       <Button variant="ghost" size="sm" onClick={() => setActiveView('history')} className="text-primary text-xs">
-                        View All <RiArrowRightLineclassName="w-3.5 h-3.5 ml-1" />
+                        View All <RiArrowRightLine className="w-3.5 h-3.5 ml-1" />
                       </Button>
                     )}
                   </div>
 
                   {displayPresentations.length === 0 ? (
                     <div className="glass-card rounded-xl p-12 text-center">
-                      <RiFileTextLineclassName="w-12 h-12 mx-auto text-muted-foreground/40 mb-3" />
+                      <RiFileTextLine className="w-12 h-12 mx-auto text-muted-foreground/40 mb-3" />
                       <p className="text-sm text-muted-foreground">No presentations yet. Create your first one to get started.</p>
                     </div>
                   ) : (
@@ -698,10 +698,10 @@ export default function Home() {
                             <p className="text-xs text-muted-foreground">{pres?.industry ?? ''} - {presSlideCount} slides</p>
                             <div className="flex items-center gap-2 mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                               <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => setPreviewPresentation(pres)}>
-                                <RiExternalLinkLineclassName="w-3 h-3 mr-1" /> View
+                                <RiExternalLinkLine className="w-3 h-3 mr-1" /> View
                               </Button>
                               <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
-                                <RiDownloadLineclassName="w-3 h-3 mr-1" /> Download
+                                <RiDownloadLine className="w-3 h-3 mr-1" /> Download
                               </Button>
                             </div>
                           </div>
@@ -780,13 +780,13 @@ export default function Home() {
                             <Label className="text-xs font-medium">Number of Slides: {formData.slideCount}</Label>
                             <div className="flex items-center gap-3 pt-1">
                               <Button variant="outline" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={() => setFormData(prev => ({ ...prev, slideCount: Math.max(5, prev.slideCount - 1) }))}>
-                                <RiSubtractLineclassName="w-3 h-3" />
+                                <RiSubtractLine className="w-3 h-3" />
                               </Button>
                               <div className="flex-1 bg-muted rounded-full h-2 relative overflow-hidden">
                                 <div className="bg-primary rounded-full h-2 transition-all duration-200" style={{ width: `${((formData.slideCount - 5) / 10) * 100}%` }} />
                               </div>
                               <Button variant="outline" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={() => setFormData(prev => ({ ...prev, slideCount: Math.min(15, prev.slideCount + 1) }))}>
-                                <RiAddLineclassName="w-3 h-3" />
+                                <RiAddLine className="w-3 h-3" />
                               </Button>
                               <span className="text-sm font-semibold text-primary w-6 text-center shrink-0">{formData.slideCount}</span>
                             </div>
@@ -829,13 +829,13 @@ export default function Home() {
                     {/* Error / Success messages */}
                     {error && (
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/20">
-                        <RiErrorWarningLineclassName="w-4 h-4 text-destructive mt-0.5 shrink-0" />
+                        <RiErrorWarningLine className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
                         <p className="text-sm text-destructive">{error}</p>
                       </div>
                     )}
                     {successMsg && (
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-green-50 border border-green-200">
-                        <RiCheckLineclassName="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+                        <RiCheckLine className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
                         <p className="text-sm text-green-700">{successMsg}</p>
                       </div>
                     )}
@@ -850,7 +850,7 @@ export default function Home() {
                           </>
                         ) : (
                           <>
-                            <RiSendPlaneLineclassName="w-4 h-4 mr-2" />
+                            <RiSendPlaneLine className="w-4 h-4 mr-2" />
                             Generate Presentation
                           </>
                         )}
@@ -861,7 +861,7 @@ export default function Home() {
                             downloadPresentation(presentations[0])
                           }
                         }}>
-                          <RiDownloadLineclassName="w-4 h-4 mr-2" />
+                          <RiDownloadLine className="w-4 h-4 mr-2" />
                           Download TXT
                         </Button>
                       )}
@@ -920,7 +920,7 @@ export default function Home() {
                 {/* Filters */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
-                    <RiSearchLineclassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <RiSearchLine className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                     <Input placeholder="Search by client name or type..." value={historySearch} onChange={(e) => setHistorySearch(e.target.value)} className="pl-9" />
                   </div>
                   <Select value={historyTypeFilter} onValueChange={setHistoryTypeFilter}>
@@ -939,7 +939,7 @@ export default function Home() {
                 {/* Grid */}
                 {filteredHistory.length === 0 ? (
                   <div className="glass-card rounded-xl p-12 text-center">
-                    <RiFileTextLineclassName="w-12 h-12 mx-auto text-muted-foreground/40 mb-3" />
+                    <RiFileTextLine className="w-12 h-12 mx-auto text-muted-foreground/40 mb-3" />
                     <p className="text-sm text-muted-foreground">
                       {displayPresentations.length === 0 ? 'No presentations yet. Create your first one to get started.' : 'No presentations match your search criteria.'}
                     </p>
@@ -964,7 +964,7 @@ export default function Home() {
                           <CardContent className="pb-2">
                             <div className="flex items-center gap-4 text-xs text-muted-foreground">
                               <span className="flex items-center gap-1">
-                                <RiFileTextLineclassName="w-3 h-3" /> {slideCount} slides
+                                <RiFileTextLine className="w-3 h-3" /> {slideCount} slides
                               </span>
                               <span>{pres?.tone ?? ''}</span>
                             </div>
@@ -981,14 +981,14 @@ export default function Home() {
                           </CardContent>
                           <CardFooter className="pt-2 gap-2">
                             <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => setPreviewPresentation(pres)}>
-                              <RiExternalLinkLineclassName="w-3 h-3 mr-1" /> Preview
+                              <RiExternalLinkLine className="w-3 h-3 mr-1" /> Preview
                             </Button>
                             <Button variant="outline" size="sm" className="h-7 text-xs flex-1" onClick={() => downloadPresentation(pres)}>
-                              <RiDownloadLineclassName="w-3 h-3 mr-1" /> Download
+                              <RiDownloadLine className="w-3 h-3 mr-1" /> Download
                             </Button>
                             {!isSample && (
                               <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10" onClick={() => handleDeletePresentation(pres?.id ?? '')}>
-                                <RiCloseLineclassName="w-3.5 h-3.5" />
+                                <RiCloseLine className="w-3.5 h-3.5" />
                               </Button>
                             )}
                           </CardFooter>
